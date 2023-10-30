@@ -18,18 +18,18 @@ bot.command('start', async (ctx) => {
     .text('JavaScript')
     .text('React')
     .row()
-    .text('Случайный вопрос')
+    .text('Random question')
     .resized();
   await ctx.reply(
-    'Привет! Я - Frontend Interview Prep Bot 🤖 \nЯ помогу тебе подготовиться к интервью по фронтенду',
+    'Hi there! I am a Front End Interview Preparation Bot 🤖 \nI will help you to prepare for an interview and nail it!',
   );
-  await ctx.reply('С чего начнем? Выбери тему вопроса в меню 👇', {
+  await ctx.reply('To start, please choose a topic from the menu', {
     reply_markup: startKeyboard,
   });
 });
 
 bot.hears(
-  ['HTML', 'CSS', 'JavaScript', 'React', 'Случайный вопрос'],
+  ['HTML', 'CSS', 'JavaScript', 'React', 'Random question'],
   async (ctx) => {
     const topic = ctx.message.text.toLowerCase();
     const { question, questionTopic } = getRandomQuestion(topic);
@@ -51,7 +51,7 @@ bot.hears(
       inlineKeyboard = InlineKeyboard.from(buttonRows);
     } else {
       inlineKeyboard = new InlineKeyboard().text(
-        'Узнать ответ',
+        'Know the answer',
         JSON.stringify({
           type: questionTopic,
           questionId: question.id,
@@ -79,7 +79,7 @@ bot.on('callback_query:data', async (ctx) => {
   }
 
   if (callbackData.isCorrect) {
-    await ctx.reply('Верно ✅');
+    await ctx.reply('Correct ✅');
     await ctx.answerCallbackQuery();
     return;
   }
@@ -88,7 +88,7 @@ bot.on('callback_query:data', async (ctx) => {
     callbackData.type.split('-')[0],
     callbackData.questionId,
   );
-  await ctx.reply(`Неверно ❌ Правильный ответ: ${answer}`);
+  await ctx.reply(`Incorrect ❌ The correct answer is: ${answer}`);
   await ctx.answerCallbackQuery();
 });
 

@@ -6,7 +6,7 @@ const getRandomQuestion = (topic) => {
 
   let questionTopic = topic.toLowerCase();
 
-  if (questionTopic === 'случайный вопрос') {
+  if (questionTopic === 'random question') {
     questionTopic =
       Object.keys(questions)[
         random.integer(0, Object.keys(questions).length - 1)
